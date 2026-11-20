@@ -108,6 +108,12 @@ h1, h2, h3 { font-family: Georgia, serif; font-weight: 500; line-height: 1.08; }
   line-height: 1.08;
 }
 .profile-hero__copy { max-width: 38rem; margin-bottom: 1rem; }
+.profile-hero__copy,
+.profile-section p:not(.profile-eyebrow),
+.profile-faq summary {
+  letter-spacing: 0.02em;
+  line-height: 1.75;
+}
 .profile-hero__cta {
   display: inline-block;
   padding: 0.85rem 1.2rem;
@@ -155,6 +161,47 @@ h1, h2, h3 { font-family: Georgia, serif; font-weight: 500; line-height: 1.08; }
   margin-top: 1.5rem;
   object-position: left center;
 }
+.profile-pullquote {
+  margin: 1.5rem 0 0;
+  padding: 1.25rem 1.5rem;
+  border: 0;
+  border-left: 4px solid var(--profile-rose);
+  color: var(--profile-ink);
+}
+.profile-pullquote::before,
+.profile-pullquote::after {
+  color: var(--profile-rose);
+  font-family: Georgia, serif;
+}
+.profile-pullquote::before {
+  content: "“";
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 3rem;
+  line-height: 0.7;
+}
+.profile-pullquote::after {
+  content: "”";
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 2rem;
+  line-height: 0.7;
+  text-align: right;
+}
+.profile-section .profile-pullquote p {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(1.25rem, 1.65vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+.profile-section--rose .profile-pullquote {
+  border-left-color: var(--profile-surface);
+  color: var(--profile-surface);
+}
+.profile-section--rose .profile-pullquote::before,
+.profile-section--rose .profile-pullquote::after { color: var(--profile-surface); }
 
 /* Bootstrap panels retain the requested Rose Opening silhouette on Garden cards. */
 .profile-service-panel.panel {

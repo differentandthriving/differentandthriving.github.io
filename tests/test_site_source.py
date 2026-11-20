@@ -88,11 +88,48 @@ class ProfileSiteTests(unittest.TestCase):
         self.assertIn("layout: profile-home", self.front_matter)
         self.assertIn('cover-img: "/assets/img/brain-ribbons.jpg"', self.front_matter)
         self.assertIn('share-img: "/assets/img/brain-ribbons.jpg"', self.front_matter)
-        self.assertIn("Different minds. Space to thrive.", self.front_matter)
+        self.assertIn('hero_line_one: "Different & thriving"', self.front_matter)
         self.assertTrue(
             (ROOT / "assets/img/brain-ribbons.jpg").is_file(),
             "The selected hero artwork must exist in the repository",
         )
+
+    def test_body_copy_uses_mildly_expanded_tracking_and_leading(self) -> None:
+        selector = ".profile-hero__copy,\n.profile-section p:not(.profile-eyebrow),\n.profile-faq summary {"
+        self.assertIn(selector, self.css)
+        style = self.css.split(selector, 1)[1].split("}", 1)[0]
+        self.assertIn("letter-spacing: 0.02em;", style)
+        self.assertIn("line-height: 1.75;", style)
+
+    def test_pullquotes_are_placed_below_their_relevant_images(self) -> None:
+        def section(section_id: str) -> str:
+            start = self.body.index(f'<section id="{section_id}"')
+            end = self.body.index("</section>", start)
+            return self.body[start:end]
+
+        about = section("about")
+        about_image_column = about.split('<div class="col-lg-6 offset-lg-1">', 1)[0]
+        self.assertLess(about_image_column.index("brain-types.svg"), about_image_column.index('class="profile-pullquote"'))
+        self.assertIn("You're starting in a place of overwhelm.", about_image_column)
+        self.assertIn("<b>That's okay.</b>", about_image_column)
+        self.assertIn('aria-hidden="true"', about_image_column)
+        self.assertEqual(about.count("You're starting in a place of overwhelm."), 2)
+
+        approach = section("approach")
+        approach_image_column = approach.split('<div class="col-lg-5 offset-lg-1">', 1)[1]
+        self.assertLess(approach_image_column.index("brain-colors_1920.png"), approach_image_column.index('class="profile-pullquote"'))
+        self.assertIn("the mind that made me unique also came with", approach_image_column)
+        self.assertIn("<b><em>untold strengths, which I had been using all along</em></b>", approach_image_column)
+        self.assertIn('aria-hidden="true"', approach_image_column)
+        self.assertEqual(approach.count("the mind that made me unique also came with"), 2)
+
+    def test_pullquotes_have_large_legible_typography(self) -> None:
+        self.assertIn(".profile-pullquote {", self.css)
+        self.assertIn(".profile-section .profile-pullquote p {", self.css)
+        self.assertIn("font-size: clamp(1.25rem, 1.65vw, 1.7rem);", self.css)
+        self.assertIn("line-height: 1.45;", self.css)
+        self.assertIn("border-left: 4px solid var(--profile-rose);", self.css)
+        self.assertIn(".profile-section--rose .profile-pullquote", self.css)
 
     def test_garden_immersion_uses_direct_image_overlay_and_color_fields(self) -> None:
         self.assertIn(".profile-hero", self.css)
@@ -115,8 +152,7 @@ class ProfileSiteTests(unittest.TestCase):
         self.assertIn('href="{{ page.hero_button_href | escape }}"', layout)
         for expected in [
             'hero_eyebrow: "Neurodiversity family coaching"',
-            'hero_line_one: "Different minds."',
-            'hero_line_two: "Space to thrive."',
+            'hero_line_one: "Different & thriving"',
             'hero_copy: "Compassionate, practical support for families navigating life with a neurodivergent child."',
             'hero_button_text: "Explore coaching"',
             'hero_button_href: "#coaching"',
@@ -160,16 +196,17 @@ class ProfileSiteTests(unittest.TestCase):
             return self.body[start:end]
 
         about = section("about")
-        self.assertLess(about.index("brain-types.svg"), about.index("About Tiffany"))
+        self.assertLess(about.index("brain-types.svg"), about.index("Coaching"))
+        self.assertLess(about.index("brain-types.svg"), about.index('class="profile-pullquote"'))
+        coaching = section("coaching")
+        self.assertLess(coaching.index("Book an appointment"), coaching.index("profile-service-panel panel"))
+        self.assertEqual(coaching.count('class="profile-service-panel panel"'), 3)
         who = section("who-i-support")
-        self.assertLess(who.index('class="col-lg-5'), who.index('class="col-lg-6 offset-lg-1'))
-        self.assertLess(who.index("Who I support"), who.index("[Audience placeholder:"))
+        self.assertLess(who.index("Topics"), who.index("child-brain-puzzle_1920.png"))
         self.assertIn("child-brain-puzzle_1920.png", who)
         approach = section("approach")
-        self.assertLess(approach.index("My approach"), approach.index("brain-colors_1920.png"))
-        work = section("coaching")
-        self.assertLess(work.index("Support that meets you here."), work.index("profile-service-panel panel"))
-        self.assertEqual(work.count('class="profile-service-panel panel"'), 3)
+        self.assertLess(approach.index("Tiffany"), approach.index("brain-colors_1920.png"))
+        self.assertLess(approach.index("brain-colors_1920.png"), approach.index('class="profile-pullquote"'))
 
     def test_services_use_the_rose_opening_panel_shape(self) -> None:
         self.assertEqual(self.body.count('class="profile-service-panel panel"'), 3)
@@ -178,28 +215,24 @@ class ProfileSiteTests(unittest.TestCase):
         self.assertIn("background: rgba(255, 255, 255, 0.09);", self.css)
         self.assertIn(".profile-service-panel h3", self.css)
 
-    def test_profile_sections_are_present_in_the_approved_order(self) -> None:
+    def test_profile_sections_follow_current_page_order(self) -> None:
         self.assertEqual(
             self.markup.section_ids,
-            ["about", "who-i-support", "approach", "coaching", "faq", "contact"],
+            ["about", "coaching", "who-i-support", "approach", "faq"],
         )
         for heading in [
-            "About Tiffany",
-            "Who I support",
-            "My approach",
-            "Support that meets you here.",
+            "Coaching",
+            "Book an appointment",
+            "Topics",
+            "Tiffany",
             "Questions",
-            "Let's find a way forward.",
         ]:
             self.assertIn(heading, self.markup.headings)
 
-    def test_all_unprovided_bio_service_and_contact_facts_stay_placeholders(self) -> None:
+    def test_explicit_rate_faq_and_contact_placeholders_remain_visible(self) -> None:
         for placeholder in [
-            "[Bio placeholder:",
-            "[Audience placeholder:",
-            "[Approach placeholder:",
-            "[Service name]",
-            "[Service format placeholder]",
+            "[Rate €]",
+            "[FAQ question placeholder]",
             "[FAQ answer placeholder]",
             "[Contact details placeholder:",
         ]:
