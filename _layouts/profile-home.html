@@ -1,0 +1,16 @@
+---
+layout: base
+---
+
+<header class="profile-hero" aria-labelledby="profile-hero-title">
+  <div class="container">
+    <p class="profile-hero__eyebrow">{{ page.hero_eyebrow | escape }}</p>
+    <h1 id="profile-hero-title">{{ page.hero_line_one | escape }} <br />{{ page.hero_line_two | escape }}</h1>
+    <p class="lead profile-hero__copy">{{ page.hero_copy | escape }}</p>
+    <a class="btn profile-hero__cta" href="{{ page.hero_button_href | escape }}">{{ page.hero_button_text | escape }}</a>
+  </div>
+</header>
+
+<main id="main-content" role="main">
+  {{ content }}
+</main>

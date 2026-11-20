@@ -1,0 +1,191 @@
+:root {
+  --profile-surface: #E8F0EC;
+  --profile-ink: #263D38;
+  --profile-garden: #4D7166;
+  --profile-rose: #A64F67;
+  --profile-coastal: #3E6D7A;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--profile-surface);
+  color: var(--profile-ink);
+  font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+h1, h2, h3 { font-family: Georgia, serif; font-weight: 500; line-height: 1.08; }
+
+/* Match Garden Immersion's compact colored bar while retaining theme navigation. */
+.navbar-custom.fixed-top {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  z-index: auto;
+  background-color: var(--profile-garden);
+  border-bottom: 0;
+}
+.navbar-custom,
+.navbar-custom.top-nav-short-permanent { padding: 1rem 15px; }
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-nav .nav-link { color: var(--profile-surface); }
+.navbar-custom .navbar-brand {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-family: Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.navbar-custom .navbar-nav .nav-item {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+.navbar-custom .navbar-nav .nav-link {
+  padding: 0.2rem 0 0.2rem 1rem;
+  color: var(--profile-surface);
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.navbar-custom .navbar-nav .nav-link:hover,
+.navbar-custom .navbar-brand:hover { color: #fff; text-decoration: underline; }
+.navbar-custom .navbar-toggler { border-color: rgba(232, 240, 236, 0.5); }
+.navbar-custom .navbar-toggler-icon { filter: brightness(0) invert(1); }
+.navbar-custom .navbar-toggler[aria-expanded="true"] { background-color: rgba(0, 0, 0, 0.15); }
+
+/* Align the theme nav contents to the same Bootstrap container edges as the mockup. */
+@media (min-width: 576px) {
+  .navbar-custom,
+  .navbar-custom.top-nav-short-permanent {
+    padding-left: calc((100vw - 540px) / 2 + 15px);
+    padding-right: calc((100vw - 540px) / 2 + 15px);
+  }
+}
+@media (min-width: 768px) {
+  .navbar-custom,
+  .navbar-custom.top-nav-short-permanent {
+    padding-left: calc((100vw - 720px) / 2 + 15px);
+    padding-right: calc((100vw - 720px) / 2 + 15px);
+  }
+}
+@media (min-width: 992px) {
+  .navbar-custom,
+  .navbar-custom.top-nav-short-permanent {
+    padding-left: calc((100vw - 960px) / 2 + 15px);
+    padding-right: calc((100vw - 960px) / 2 + 15px);
+  }
+}
+@media (min-width: 1200px) {
+  .navbar-custom,
+  .navbar-custom.top-nav-short-permanent {
+    padding-left: calc((100vw - 1140px) / 2 + 15px);
+    padding-right: calc((100vw - 1140px) / 2 + 15px);
+  }
+}
+
+/* The theme's nav remains native; this page-specific hero mirrors the chosen mockup. */
+.profile-hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  color: var(--profile-surface);
+  background: linear-gradient(90deg, rgba(38, 61, 56, 0.93), rgba(38, 61, 56, 0.63) 58%, rgba(38, 61, 56, 0.12)), url("/assets/img/brain-ribbons.jpg") center/cover no-repeat;
+}
+.profile-hero .container { width: 100%; }
+.profile-hero__eyebrow {
+  margin-bottom: 1rem;
+  color: #F0C9D2;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.profile-hero h1 {
+  margin: 0 0 0.5rem;
+  color: var(--profile-surface);
+  font-size: clamp(3.2rem, 7vw, 6.3rem);
+  font-weight: 500;
+  line-height: 1.08;
+}
+.profile-hero__copy { max-width: 38rem; margin-bottom: 1rem; }
+.profile-hero__cta {
+  display: inline-block;
+  padding: 0.85rem 1.2rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--profile-rose);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.profile-hero__cta:hover,
+.profile-hero__cta:focus { background: #873C52; color: #fff; text-decoration: none; }
+
+.profile-section { padding: 5rem 0; }
+.profile-section--surface { background: var(--profile-surface); color: var(--profile-ink); }
+.profile-section--garden { background: var(--profile-garden); color: var(--profile-surface); }
+.profile-section--coastal { background: var(--profile-coastal); color: var(--profile-surface); }
+.profile-section--rose { background: var(--profile-rose); color: #fff; }
+.profile-section h2 { margin-top: 0; font-size: 2rem; font-weight: 500; }
+.profile-section--garden h2,
+.profile-section--coastal h2,
+.profile-section--rose h2,
+.profile-section--garden h3 { color: var(--profile-surface); }
+.profile-eyebrow {
+  margin-bottom: 0.65rem;
+  color: var(--profile-coastal);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.profile-section--garden .profile-eyebrow,
+.profile-section--coastal .profile-eyebrow,
+.profile-section--rose .profile-eyebrow { color: var(--profile-surface); }
+.profile-placeholder { margin-bottom: 1rem; }
+
+.profile-art {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+}
+.profile-art--small {
+  max-height: 220px;
+  margin-top: 1.5rem;
+  object-position: left center;
+}
+
+/* Bootstrap panels retain the requested Rose Opening silhouette on Garden cards. */
+.profile-service-panel.panel {
+  height: 100%;
+  padding: 1.5rem;
+  border: 0;
+  border-top: 3px solid var(--profile-rose);
+  border-radius: 0 2rem 0 2rem;
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--profile-surface);
+}
+.profile-service-panel h3 { margin-top: 0; color: var(--profile-surface); font-size: 1.75rem; font-weight: 500; }
+.profile-service-panel .profile-placeholder { margin-bottom: 0; }
+
+.profile-faq { padding: 1rem 0; border-top: 1px solid currentColor; }
+.profile-faq summary { cursor: pointer; font-weight: 700; }
+.profile-faq:focus-within { outline: 2px solid var(--profile-ink); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--profile-ink); outline-offset: 3px; }
+.navbar-custom :focus-visible,
+.profile-hero :focus-visible,
+.profile-section--garden :focus-visible,
+.profile-section--coastal :focus-visible,
+.profile-section--rose :focus-visible { outline-color: var(--profile-surface); }
+
+@media (max-width: 767.98px) {
+  .profile-hero { min-height: 70vh; }
+  .profile-hero h1 { font-size: clamp(2.7rem, 11vw, 4.5rem); }
+  .profile-section { padding: 3.5rem 0; }
+  .navbar-custom .navbar-nav .nav-link { padding: 0.6rem 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

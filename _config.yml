@@ -1,0 +1,46 @@
+title: "Tiffany Gibson"
+author: "Tiffany Gibson"
+description: "Neurodiversity family coaching with Tiffany Gibson."
+url: "https://differentandthriving.com"
+baseurl: ""
+url-pretty: "differentandthriving.com"
+
+remote_theme: daattali/beautiful-jekyll@6.0.1
+plugins:
+  - jekyll-remote-theme
+
+navbar-links:
+  About: "/#about"
+  Coaching: "/#coaching"
+  Compare: "/design-versions/"
+
+page-col: "#E8F0EC"
+text-col: "#263D38"
+link-col: "#3E6D7A"
+hover-col: "#A64F67"
+navbar-col: "#4D7166"
+navbar-text-col: "#E8F0EC"
+navbar-border-col: "#3E6D7A"
+footer-col: "#263D38"
+footer-text-col: "#E8F0EC"
+footer-link-col: "#E8F0EC"
+footer-hover-col: "#E8F0EC"
+mobile-theme-col: "#4D7166"
+
+site-css:
+  - "/assets/css/custom-styles.css"
+
+show-avatar: false
+post_search: false
+edit_page_button: false
+title-on-all-pages: false
+share-links-active: {}
+markdown: kramdown
+
+exclude:
+  - plans/
+  - .github/
+  - tests/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
