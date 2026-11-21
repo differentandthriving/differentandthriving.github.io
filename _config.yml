@@ -10,9 +10,11 @@ plugins:
   - jekyll-remote-theme
 
 navbar-links:
-  About: "/#about"
   Coaching: "/#coaching"
-  Compare: "/design-versions/"
+  Book a session: "/#book"
+  Topics: "/#topics"
+  About Me: "/#bio"
+  FAQ: "/#faq"
 
 page-col: "#E8F0EC"
 text-col: "#263D38"
